@@ -137,7 +137,7 @@ dependencies {
     implementation(libs.androidx.security.crypto)
 
     // SLF4J simple binding (to satisfy R8 missing class check in release)
-    implementation 'org.slf4j:slf4j-simple:2.0.9'
+    implementation("org.slf4j:slf4j-simple:2.0.9")
 
     // Background
     implementation(libs.androidx.work.runtime)
