@@ -129,7 +129,6 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.serialization.json)
-    implementation(libs.ktor.sse)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.okio)
@@ -146,12 +145,6 @@ dependencies {
     // Widget + biometric
     implementation(libs.androidx.glance.appwidget)
     implementation(libs.androidx.biometric)
-
-    // Markdown
-    implementation(libs.markdown)
-
-    // Debug
-    debugImplementation(libs.leakcanary)
 
     // Test
     testImplementation(platform(libs.junit))
