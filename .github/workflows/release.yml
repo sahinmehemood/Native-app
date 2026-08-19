@@ -47,11 +47,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build release APK
-        run: ./gradlew assembleRelease --no-daemon \
-          -PRELEASE_STORE_FILE="$STORE_FILE" \
-          -PRELEASE_STORE_PASSWORD="$STORE_PASSWORD" \
-          -PRELEASE_KEY_ALIAS="$KEY_ALIAS" \
-          -PRELEASE_KEY_PASSWORD="$KEY_PASSWORD"
+        run: ./gradlew assembleRelease --no-daemon -PRELEASE_STORE_FILE="$STORE_FILE" -PRELEASE_STORE_PASSWORD="$STORE_PASSWORD" -PRELEASE_KEY_ALIAS="$KEY_ALIAS" -PRELEASE_KEY_PASSWORD="$KEY_PASSWORD"
 
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
