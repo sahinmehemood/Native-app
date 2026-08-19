@@ -1,0 +1,51 @@
+# Built output
+*.apk
+*.aab
+*.ap_
+*.aar
+*.jar
+*.war
+*.class
+*.lock
+
+# Gradle
+.gradle/
+build/
+app/build/
+**/build/
+.gradle/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Local config (NEVER commit)
+local.properties
+keystore.properties
+*.keystore
+*.jks
+gradle.properties.local
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node (if any tooling)
+node_modules/
+
+# Keys / secrets
+secrets/
+*.pem
+.env
+.env.*
