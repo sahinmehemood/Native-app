@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Exclude secrets and local cache from auto-backup -->
+    <exclude domain="sharedpref" path="secure_prefs.xml" />
+    <exclude domain="database" path="hermes.db" />
+</full-backup-content>
