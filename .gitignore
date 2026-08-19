@@ -3,10 +3,10 @@
 *.aab
 *.ap_
 *.aar
-*.jar
-*.war
-*.class
 *.lock
+
+# Keep the Gradle wrapper jar (required to run ./gradlew in CI)
+!gradle/wrapper/gradle-wrapper.jar
 
 # Gradle
 .gradle/
