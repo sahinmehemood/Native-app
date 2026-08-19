@@ -45,8 +45,8 @@ android {
             manifestPlaceholders["appName"] = "Hermes (Debug)"
         }
         release {
-            isMinifyEnabled = true
-            isShrinkResources = true
+            isMinifyEnabled = false
+            isShrinkResources = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -135,6 +135,9 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.security.crypto)
+
+    // SLF4J simple binding (to satisfy R8 missing class check in release)
+    implementation 'org.slf4j:slf4j-simple:2.0.9'
 
     // Background
     implementation(libs.androidx.work.runtime)
