@@ -31,6 +31,7 @@
 
 # SLF4J: keep impl classes to avoid R8 missing class warnings in release
 -keep class org.slf4j.impl.* { *; }
+-dontwarn org.slf4j.**
 
 # Keep data classes used in JSON for Hermes API (tolerant)
 -keep class com.hermes.android.data.api.dto.** { *; }

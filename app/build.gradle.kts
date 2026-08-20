@@ -15,8 +15,8 @@ android {
         applicationId = "com.hermes.android"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 2
+        versionName = "0.2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -45,8 +45,8 @@ android {
             manifestPlaceholders["appName"] = "Hermes (Debug)"
         }
         release {
-            isMinifyEnabled = false
-            isShrinkResources = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -136,8 +136,9 @@ dependencies {
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.security.crypto)
 
-    // SLF4J simple binding (to satisfy R8 missing class check in release)
-    implementation("org.slf4j:slf4j-simple:2.0.9")
+    // SLF4J 1.x simple binding — provides org.slf4j.impl.StaticLoggerBinder so R8
+    // links cleanly in release (a transitive slf4j-api 1.x is pulled by a dependency).
+    implementation("org.slf4j:slf4j-simple:1.7.36")
 
     // Background
     implementation(libs.androidx.work.runtime)

@@ -6,6 +6,8 @@
   core components (OrbLoader, HermesButton, HermesCard, HermesSectionHeader, HermesBrand),
   minimal app (Manifest, Application, MainActivity + Splash), cloud CI (ci/release/nightly).
   Pushed to trigger GitHub Actions cloud build of debug APK.
+- 2026-08-19 — Step 6: Fixed build errors (dp import, theme parent, missing dependencies).
+  Debug APK built successfully via GitHub Actions (run 32289066362).
 
 ## Released
 (none yet)

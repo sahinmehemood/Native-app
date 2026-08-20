@@ -46,13 +46,20 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build release APK
+      - name: Build release APK (R8 minified)
         run: ./gradlew assembleRelease --no-daemon -PRELEASE_STORE_FILE="$STORE_FILE" -PRELEASE_STORE_PASSWORD="$STORE_PASSWORD" -PRELEASE_KEY_ALIAS="$KEY_ALIAS" -PRELEASE_KEY_PASSWORD="$KEY_PASSWORD"
+
+      - name: Locate built APK
+        id: locate
+        run: |
+          APK=$(find app/build/outputs -name '*.apk' | head -n 1)
+          echo "Found APK: $APK"
+          echo "apk=$APK" >> "$GITHUB_OUTPUT"
 
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: app/build/outputs/apk/release/app-release.apk
+          files: ${{ steps.locate.outputs.apk }}
           name: Hermes Agent ${{ github.ref_name }}
           generate_release_notes: true
         env:
