@@ -65,7 +65,7 @@ fun SetupScreen(navController: NavHostController) {
             )
             Spacer(Modifier.height(HermesSpacing.Spacing24))
 
-            Row(horizontalArrangement = Arrangement.spacedBy(HermesSpacing.Spacing8))) {
+            Row(horizontalArrangement = Arrangement.spacedBy(HermesSpacing.Spacing8)) {
                 HermesChip("Local (Termux)", selected = mode == ConnectionMode.LOCAL, onClick = { viewModel.setMode(ConnectionMode.LOCAL) }, modifier = Modifier.weight(1f))
                 HermesChip("Remote API", selected = mode == ConnectionMode.REMOTE, onClick = { viewModel.setMode(ConnectionMode.REMOTE) }, modifier = Modifier.weight(1f))
             }
