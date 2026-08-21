@@ -13,7 +13,6 @@ build:
 config:
   validation: true
   warningsAsErrors: false   # baseline absorbs legacy; new code must be clean
-  parallel: true
 
 processors:
   active: true
@@ -53,6 +52,8 @@ complexity:
 
 style:
   active: true
+  UnusedImports:
+    active: true
   MagicNumber:
     active: false   # design tokens are named; UI literals tolerated
   UnusedPrivateMember:
@@ -75,8 +76,6 @@ coroutines:
 
 potential-bugs:
   active: true
-  UnusedImports:
-    active: true
   Deprecation:
     active: true
   UnsafeCallOnNullableType:
