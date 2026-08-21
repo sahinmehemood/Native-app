@@ -21,27 +21,27 @@ import com.hermes.android.core.design.tokens.ReducedMotion
  */
 
 private val DarkColorScheme = darkColorScheme(
-    primary = HermesColorTokens.Accent,
-    onPrimary = HermesColorTokens.AccentOn,
+    primary = HermesColorTokens.Dark.Accent,
+    onPrimary = HermesColorTokens.Dark.AccentOn,
     background = HermesColorTokens.Dark.Background,
     surface = HermesColorTokens.Dark.Surface,
     surfaceVariant = HermesColorTokens.Dark.SurfaceVariant,
     onSurface = HermesColorTokens.Dark.OnSurface,
     onSurfaceVariant = HermesColorTokens.Dark.OnSurfaceMuted,
     outline = HermesColorTokens.Dark.Border,
-    error = HermesColorTokens.Danger,
+    error = HermesColorTokens.Dark.Danger,
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = HermesColorTokens.Accent,
-    onPrimary = HermesColorTokens.AccentOn,
+    primary = HermesColorTokens.Light.Accent,
+    onPrimary = HermesColorTokens.Light.AccentOn,
     background = HermesColorTokens.Light.Background,
     surface = HermesColorTokens.Light.Surface,
     surfaceVariant = HermesColorTokens.Light.SurfaceVariant,
     onSurface = HermesColorTokens.Light.OnSurface,
     onSurfaceVariant = HermesColorTokens.Light.OnSurfaceMuted,
     outline = HermesColorTokens.Light.Border,
-    error = HermesColorTokens.Danger,
+    error = HermesColorTokens.Light.Danger,
 )
 
 val LocalReducedMotion = staticCompositionLocalOf { ReducedMotion(enabled = false) }
