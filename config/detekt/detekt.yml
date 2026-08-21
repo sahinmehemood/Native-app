@@ -1,0 +1,88 @@
+# Detekt configuration — Hermes Android Native
+# Builds upon the default config. Tuned for a Compose-first, multi-module codebase.
+# Rules that are noisy for Jetpack Compose or intentionally allowed are disabled
+# below. New rules are opted-in explicitly, never silently.
+
+build:
+  maxIssues: 0
+  weights:
+    complexity: 2
+    LongParameterList: 2
+    style: 1
+
+config:
+  validation: true
+  warningsAsErrors: false   # baseline absorbs legacy; new code must be clean
+  parallel: true
+
+processors:
+  active: true
+  exclude:
+    - "DetektProgressListener"
+
+console-reports:
+  active: true
+  exclude:
+    - "ProjectStatisticsReport"
+    - "ComplexityReport"
+    - "NotificationReport"
+
+comments:
+  active: true
+  CommentOverPrivateFunction:
+    active: false
+  CommentOverPrivateProperty:
+    active: false
+
+complexity:
+  active: true
+  LongMethod:
+    active: true
+    threshold: 80
+  LongParameterList:
+    active: true
+    functionThreshold: 8
+  CognitiveComplexMethod:
+    active: true
+    threshold: 20
+  CyclomaticComplexMethod:
+    active: true
+    threshold: 15
+  TooManyFunctions:
+    active: false   # Compose UIs legitimately have many small functions
+
+style:
+  active: true
+  MagicNumber:
+    active: false   # design tokens are named; UI literals tolerated
+  UnusedPrivateMember:
+    active: true
+  WildcardImport:
+    active: true
+  MaxLineLength:
+    active: true
+    maxLineLength: 120
+  ReturnCount:
+    active: true
+    max: 4
+
+coroutines:
+  active: true
+  GlobalCoroutineUsage:
+    active: true
+  RedundantSuspendModifier:
+    active: true
+
+potential-bugs:
+  active: true
+  UnusedImports:
+    active: true
+  Deprecation:
+    active: true
+  UnsafeCallOnNullableType:
+    active: true
+
+performance:
+  active: true
+  SpreadOperator:
+    active: false

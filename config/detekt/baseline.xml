@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<smell-baseline>
+  <!-- Pre-existing smells absorbed on day one. New code must pass clean; this
+       only prevents historical noise from blocking the initial CI rollout. -->
+</smell-baseline>
