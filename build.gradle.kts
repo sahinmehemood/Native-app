@@ -46,7 +46,7 @@ subprojects {
 
     plugins.withId("com.android.library") {
         extensions.configure<com.android.build.gradle.LibraryExtension> {
-            compileSdk = 34
+            compileSdk = 35
             defaultConfig { minSdk = 26 }
             compileOptions {
                 sourceCompatibility = JavaVersion.VERSION_17
