@@ -1,0 +1,77 @@
+{
+  "name": "Hermes Android Native — Design Tokens",
+  "version": "0.1.0",
+  "description": "Single source of truth for the Hermes Android app. Consumed by (a) gen_tokens.py to emit Compose code, and (b) the Figma plugin (figma-plugin/) to generate the visual file. Primitive values are hex; semantic modes map primitives to Dark/Light.",
+  "primitive": {
+    "color": {
+      "violet-500": "#7C5CFF",
+      "violet-900": "#2A2350",
+      "white": "#FFFFFF",
+      "green-400": "#3DDC84",
+      "amber-400": "#FFB020",
+      "red-400": "#FF5C5C",
+      "blue-400": "#5AC8FA",
+      "gray-400": "#8A8A99",
+      "gray-500": "#6A6A78",
+      "ink-900": "#0B0B10",
+      "ink-850": "#16161E",
+      "ink-800": "#1F1F2A",
+      "ink-750": "#242433",
+      "ink-700": "#2E2E3C",
+      "paper-50": "#F7F7FB",
+      "paper-100": "#FFFFFF",
+      "paper-200": "#F0F0F6",
+      "paper-300": "#E9E9F2",
+      "paper-400": "#DCDCE6",
+      "ink-on-paper": "#16161E",
+      "gray-on-paper": "#5A5A68"
+    },
+    "spacing": {
+      "0": 0, "xs": 4, "sm": 8, "md": 12, "lg": 16, "xl": 24, "xxl": 32, "section": 40
+    },
+    "radius": {
+      "card": 16, "sheet": 28, "chip": 999, "sm": 8
+    },
+    "elevation": {
+      "none": 0, "low": 1, "medium": 3, "high": 6, "drag": 12
+    },
+    "motion": {
+      "durationInstant": 0, "durationFast": 150, "durationBase": 250,
+      "durationSlow": 350, "durationEmphasis": 500,
+      "easeStandard": "fastOutSlowIn", "easeDecelerate": "linearOutSlowIn", "easeLinear": ""
+    }
+  },
+  "semantic": {
+    "color": {
+      "dark": {
+        "accent": "violet-500", "accentSoft": "violet-900", "accentOn": "white",
+        "success": "green-400", "warning": "amber-400", "danger": "red-400", "info": "blue-400",
+        "statusIdle": "gray-400", "statusRunning": "violet-500", "statusAwaiting": "amber-400",
+        "statusDone": "green-400", "statusStopped": "gray-400", "statusError": "red-400",
+        "roleUser": "violet-500", "roleAssistant": "white", "roleTool": "blue-400", "roleSystem": "gray-400",
+        "background": "ink-900", "surface": "ink-850", "surfaceVariant": "ink-800",
+        "surfaceRaised": "ink-750", "border": "ink-700", "onSurface": "white",
+        "onSurfaceMuted": "gray-400", "onSurfaceSubtle": "gray-500"
+      },
+      "light": {
+        "accent": "violet-500", "accentSoft": "violet-900", "accentOn": "white",
+        "success": "green-400", "warning": "amber-400", "danger": "red-400", "info": "blue-400",
+        "statusIdle": "gray-400", "statusRunning": "violet-500", "statusAwaiting": "amber-400",
+        "statusDone": "green-400", "statusStopped": "gray-400", "statusError": "red-400",
+        "roleUser": "violet-500", "roleAssistant": "ink-900", "roleTool": "blue-400", "roleSystem": "gray-400",
+        "background": "paper-50", "surface": "paper-100", "surfaceVariant": "paper-200",
+        "surfaceRaised": "paper-300", "border": "paper-400", "onSurface": "ink-on-paper",
+        "onSurfaceMuted": "gray-on-paper", "onSurfaceSubtle": "gray-400"
+      }
+    }
+  },
+  "typography": {
+    "display": { "size": 32, "lineHeight": 40, "weight": "bold" },
+    "titleLarge": { "size": 20, "lineHeight": 28, "weight": "semibold" },
+    "title": { "size": 16, "lineHeight": 24, "weight": "medium" },
+    "bodyLarge": { "size": 16, "lineHeight": 24, "weight": "normal" },
+    "body": { "size": 14, "lineHeight": 20, "weight": "normal" },
+    "label": { "size": 14, "lineHeight": 20, "weight": "medium" },
+    "caption": { "size": 12, "lineHeight": 16, "weight": "normal" }
+  }
+}

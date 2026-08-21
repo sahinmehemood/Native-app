@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<body style="font-family:sans-serif;padding:16px">
+  <h3>Hermes Design System</h3>
+  <p>Generates the full Hermes Android token system into this file:
+     primitive + semantic color collections (Dark/Light modes), spacing/radius/
+     elevation variables, and component frames.</p>
+  <button id="go" style="padding:8px 16px">Generate design system</button>
+  <p id="status"></p>
+  <script>
+    document.getElementById('go').onclick = () => {
+      document.getElementById('status').textContent = 'Generating…';
+      parent.postMessage({ pluginMessage: { type: 'generate' } }, '*');
+    };
+    window.onmessage = (e) => {
+      if (e.data.pluginMessage?.type === 'done')
+        document.getElementById('status').textContent = e.data.pluginMessage.msg;
+    };
+  </script>
+</body>
+</html>

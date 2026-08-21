@@ -1,0 +1,9 @@
+{
+  "name": "Hermes Token Generator",
+  "id": "hermes-token-generator",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorTypes": ["figma"],
+  "capabilities": ["variableAuthoring"]
+}
