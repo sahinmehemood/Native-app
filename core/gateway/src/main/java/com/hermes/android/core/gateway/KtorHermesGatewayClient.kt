@@ -15,13 +15,14 @@ import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
-import io.ktor.client.statement.body
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.serialization.serializer
 
 /**
  * Ktor implementation of [HermesGatewayClient] targeting the stable
@@ -45,10 +46,10 @@ class KtorHermesGatewayClient(
     }
 
     override suspend fun getHealth(): HealthStatus =
-        client.get("$baseUrl/health") { auth() }.body<HealthStatus>()
+        HermesJson.decodeFromString<HealthStatus>(client.get("$baseUrl/health") { auth() }.bodyAsText())
 
     override suspend fun getSessions(): List<SessionSummary> =
-        client.get("$baseUrl/api/sessions") { auth() }.body<List<SessionSummary>>()
+        HermesJson.decodeFromString(client.get("$baseUrl/api/sessions") { auth() }.bodyAsText())
 
     override fun postChat(sessionId: String, request: ChatRequest): Flow<StreamEvent> = flow {
         val response: HttpResponse = client.post("$baseUrl/api/sessions/$sessionId/chat?stream=true") {
@@ -56,31 +57,29 @@ class KtorHermesGatewayClient(
             contentType(ContentType.Application.Json)
             setBody(HermesJson.encodeToString(ChatRequest.serializer(), request))
         }
-        deliverEvents(response)
+        emitSse(response.bodyAsText())
     }
 
     override fun getRunEvents(runId: String): Flow<StreamEvent> = flow {
         val response: HttpResponse = client.get("$baseUrl/v1/runs/$runId/events") { auth() }
-        deliverEvents(response)
+        emitSse(response.bodyAsText())
     }
 
     override suspend fun postApproval(runId: String, decision: String, scope: String?): ApprovalResult =
-        client.post("$baseUrl/v1/runs/$runId/approval") {
-            auth()
-            contentType(ContentType.Application.Json)
-            setBody(ApprovalDecision(decision = decision, scope = scope))
-        }.body<ApprovalResult>()
+        HermesJson.decodeFromString(
+            client.post("$baseUrl/v1/runs/$runId/approval") {
+                auth()
+                contentType(ContentType.Application.Json)
+                setBody(ApprovalDecision(decision = decision, scope = scope))
+            }.bodyAsText(),
+        )
 
     override suspend fun stopRun(runId: String) {
-        client.post("$baseUrl/v1/runs/$runId/stop") { auth() }.body<String>()
+        client.post("$baseUrl/v1/runs/$runId/stop") { auth() }.bodyAsText()
     }
 
-    private suspend fun deliverEvents(response: HttpResponse) {
-        val raw: String = response.body<String>()
-        parseSseText(raw) { event, data -> emit(parseStreamEvent(event, data)) }
-    }
-
-    private suspend fun parseSseText(raw: String, emit: suspend (String, String) -> Unit) {
+    /** Emit each parsed SSE frame into this flow. Runs inside flow {} so emit is native. */
+    private suspend fun kotlinx.coroutines.flow.FlowCollector<StreamEvent>.emitSse(raw: String) {
         var event = "message"
         val data = StringBuilder()
         for (line in raw.lineSequence()) {
@@ -92,13 +91,13 @@ class KtorHermesGatewayClient(
                 }
                 line.isEmpty() -> {
                     if (data.isNotEmpty()) {
-                        emit(event, data.toString())
+                        emit(parseStreamEvent(event, data.toString()))
                         event = "message"
                         data.clear()
                     }
                 }
             }
         }
-        if (data.isNotEmpty()) emit(event, data.toString())
+        if (data.isNotEmpty()) emit(parseStreamEvent(event, data.toString()))
     }
 }
