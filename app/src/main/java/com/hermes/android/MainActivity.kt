@@ -3,31 +3,20 @@ package com.hermes.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.ArrowUpward
-import androidx.compose.material.icons.outlined.Menu
-import androidx.compose.material.icons.outlined.MoreHoriz
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -39,141 +28,107 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.hermes.android.ui.theme.HermesTheme
+import com.hermes.android.core.design.theme.HermesTheme
+import com.hermes.android.core.design.tokens.HermesColorTokens
+import com.hermes.android.core.design.tokens.HermesSpacing
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent { HermesTheme { HermesShell() } }
+        // Reduced-motion follows the system accessibility flag; Settings can override later.
+        val reduceMotion = resources.configuration.fontScale > 0f &&
+                android.provider.Settings.Global.getInt(
+                    contentResolver,
+                    android.provider.Settings.Global.ANIMATOR_DURATION_SCALE,
+                    1,
+                ) == 0f
+        setContent {
+            HermesTheme(darkTheme = isSystemInDarkTheme(), reducedMotion = reduceMotion) {
+                Surface(modifier = Modifier.fillMaxSize()) {
+                    AppRoot()
+                }
+            }
+        }
     }
 }
 
-private data class PreviewMessage(val author: String, val body: String, val isUser: Boolean)
-
+/**
+ * App root. The feature modules (Home/Chat/…) register their destinations into
+ * the shared navigation graph under :core:navigation. Until those land, this
+ * renders the branded connection shell so the app launches to a real, on-brand
+ * screen rather than a blank or hardcoded-colored placeholder.
+ */
 @Composable
-private fun HermesShell() {
-    val messages = remember {
-        listOf(
-            PreviewMessage("Hermes", "Ready when you are. Connect a Hermes gateway to begin.", false),
-        )
-    }
+private fun AppRoot() {
+    val colors = HermesColorTokens
     var draft by remember { mutableStateOf("") }
-
-    Surface(modifier = Modifier.fillMaxSize(), color = HermesColors.background) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            TopBar()
-            LazyColumn(
-                modifier = Modifier.weight(1f).fillMaxWidth(),
-                contentPadding = androidx.compose.foundation.layout.PaddingValues(20.dp),
-                verticalArrangement = Arrangement.spacedBy(18.dp),
-            ) {
-                item { ConnectionBanner() }
-                items(messages) { message -> MessageCard(message) }
+    androidx.compose.foundation.layout.Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        // Top bar
+        androidx.compose.foundation.layout.Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = HermesSpacing.Lg, vertical = HermesSpacing.Md),
+            verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+        ) {
+            androidx.compose.material3.Text(
+                "Hermes",
+                color = colors.Dark.onSurface,
+                style = com.hermes.android.core.design.theme.HermesTypography.titleLarge,
+            )
+            androidx.compose.foundation.layout.Spacer(Modifier.weight(1f))
+            androidx.compose.material3.IconButton(onClick = {}) {
+                androidx.compose.material3.Icon(
+                    androidx.compose.material.icons.Icons.Outlined.Settings,
+                    "Settings",
+                    tint = colors.Dark.onSurfaceMuted,
+                )
             }
-            Composer(
+        }
+        // Connection banner (uses semantic tokens, dark theme)
+        androidx.compose.foundation.layout.Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(HermesSpacing.Lg)
+                .clip(androidx.compose.foundation.shape.RoundedCornerShape(HermesSpacing.CardRadius))
+                .background(colors.Dark.SurfaceVariant)
+                .padding(HermesSpacing.Lg)
+        ) {
+            androidx.compose.material3.Text(
+                "Gateway not connected — add a Hermes host to begin.",
+                color = colors.Dark.OnSurfaceMuted,
+            )
+        }
+        androidx.compose.foundation.layout.Spacer(Modifier.weight(1f))
+        // Composer stub (real composer ships with feature:chat)
+        androidx.compose.foundation.layout.Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(HermesSpacing.Lg)
+        ) {
+            androidx.compose.material3.TextField(
                 value = draft,
                 onValueChange = { draft = it },
-                modifier = Modifier.navigationBarsPadding(),
+                modifier = Modifier.weight(1f),
+                placeholder = { androidx.compose.material3.Text("Message Hermes", color = colors.Dark.OnSurfaceMuted) },
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(18),
+                colors = androidx.compose.material3.TextFieldDefaults.colors(
+                    focusedContainerColor = colors.Dark.Surface,
+                    unfocusedContainerColor = colors.Dark.Surface,
+                    focusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
+                    unfocusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
+                    focusedTextColor = colors.Dark.OnSurface,
+                    unfocusedTextColor = colors.Dark.OnSurface,
+                ),
             )
         }
     }
 }
 
+@androidx.compose.ui.tooling.preview.Preview(showBackground = true)
 @Composable
-private fun TopBar() {
-    Row(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        IconButton(onClick = {}) { Icon(Icons.Outlined.Menu, "Open sessions") }
-        Column(modifier = Modifier.weight(1f).padding(start = 4.dp)) {
-            Text("Hermes", color = HermesColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
-            Text("Android client", color = HermesColors.textMuted, fontSize = 12.sp)
-        }
-        IconButton(onClick = {}) { Icon(Icons.Outlined.Settings, "Settings", tint = HermesColors.textSecondary) }
-        IconButton(onClick = {}) { Icon(Icons.Outlined.MoreHoriz, "More actions", tint = HermesColors.textSecondary) }
-    }
+private fun AppRootPreview() {
+    HermesTheme(darkTheme = true) { Surface(Modifier.fillMaxSize()) { AppRoot() } }
 }
-
-@Composable
-private fun ConnectionBanner() {
-    Row(
-        modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(HermesColors.surface).padding(14.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Box(modifier = Modifier.size(9.dp).clip(CircleShape).background(HermesColors.warning))
-        Spacer(Modifier.width(10.dp))
-        Column(modifier = Modifier.weight(1f)) {
-            Text("Gateway not connected", color = HermesColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Medium)
-            Text("Connect your Hermes host to start an agent session.", color = HermesColors.textMuted, fontSize = 12.sp)
-        }
-        IconButton(onClick = {}) { Icon(Icons.Outlined.Add, "Add gateway", tint = HermesColors.accent) }
-    }
-}
-
-@Composable
-private fun MessageCard(message: PreviewMessage) {
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = if (message.isUser) Arrangement.End else Arrangement.Start) {
-        Column(modifier = Modifier.fillMaxWidth(0.92f)) {
-            Text(message.author, color = HermesColors.accent, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
-            Spacer(Modifier.size(5.dp))
-            Text(
-                message.body,
-                modifier = Modifier.clip(RoundedCornerShape(16.dp)).background(HermesColors.surface).padding(15.dp),
-                color = HermesColors.textPrimary,
-                fontSize = 15.sp,
-                lineHeight = 22.sp,
-            )
-        }
-    }
-}
-
-@Composable
-private fun Composer(value: String, onValueChange: (String) -> Unit, modifier: Modifier = Modifier) {
-    Row(
-        modifier = modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.Bottom,
-    ) {
-        TextField(
-            value = value,
-            onValueChange = onValueChange,
-            modifier = Modifier.weight(1f),
-            placeholder = { Text("Message Hermes", color = HermesColors.textMuted) },
-            shape = RoundedCornerShape(18.dp),
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = HermesColors.surface,
-                unfocusedContainerColor = HermesColors.surface,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                focusedTextColor = HermesColors.textPrimary,
-                unfocusedTextColor = HermesColors.textPrimary,
-            ),
-        )
-        Spacer(Modifier.width(8.dp))
-        IconButton(
-            onClick = {},
-            modifier = Modifier.size(52.dp).clip(CircleShape).background(HermesColors.accent),
-        ) { Icon(Icons.Outlined.ArrowUpward, "Send", tint = HermesColors.background) }
-    }
-}
-
-private object HermesColors {
-    val background = Color(0xFF0B0D0F)
-    val surface = Color(0xFF15191D)
-    val textPrimary = Color(0xFFF2F3F4)
-    val textSecondary = Color(0xFFB4BBC2)
-    val textMuted = Color(0xFF78818A)
-    val accent = Color(0xFFD9A441)
-    val warning = Color(0xFFE0A34B)
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFF0B0D0F)
-@Composable
-private fun HermesShellPreview() { HermesTheme { HermesShell() } }
-
