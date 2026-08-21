@@ -51,6 +51,9 @@ jobs:
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_ENABLE_UPLOAD_ARTIFACT: "false"
+        with:
+          args: detect --redact --no-git --exit-code=1 --report-format=sarif --report-path=results.sarif
       - name: Upload build artifacts
         if: always()
         uses: actions/upload-artifact@v4
