@@ -22,9 +22,13 @@ subprojects {
     }
 
     // ktlint: enforce Kotlin style on every module (iOS-app-grade consistency).
+    // NOTE: the jlleitschuh gradle plugin version (12.1.2, in the catalog) is the
+    // plugin marker only; it internally resolves com.pinterest.ktlint:ktlint-cli,
+    // which is published on the 1.x line (12.1.2 does NOT exist). Pin the CLI
+    // explicitly to an existing release so the plugin resolves.
     plugins.withId("org.jlleitschuh.gradle.ktlint") {
         extensions.configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
-            version.set(libs.versions.ktlint.get())
+            version.set("1.3.1")
             android.set(true)
             ignoreFailures.set(false) // hard gate: bad formatting fails CI
         }
