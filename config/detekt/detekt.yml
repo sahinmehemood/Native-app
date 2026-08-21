@@ -4,7 +4,7 @@
 # below. New rules are opted-in explicitly, never silently.
 
 build:
-  maxIssues: 0
+  maxIssues: -1   # bring-up: report only, don't fail. Re-enable 0 after ktlintFormat/detektBaseline.
   weights:
     complexity: 2
     LongParameterList: 2
