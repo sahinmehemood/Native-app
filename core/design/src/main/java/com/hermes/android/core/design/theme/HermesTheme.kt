@@ -21,27 +21,27 @@ import com.hermes.android.core.design.tokens.ReducedMotion
  */
 
 private val DarkColorScheme = darkColorScheme(
-    primary = HermesColorTokens.Dark.Accent,
-    onPrimary = HermesColorTokens.Dark.AccentOn,
-    background = HermesColorTokens.Dark.Background,
-    surface = HermesColorTokens.Dark.Surface,
-    surfaceVariant = HermesColorTokens.Dark.SurfaceVariant,
-    onSurface = HermesColorTokens.Dark.OnSurface,
-    onSurfaceVariant = HermesColorTokens.Dark.OnSurfaceMuted,
-    outline = HermesColorTokens.Dark.Border,
-    error = HermesColorTokens.Dark.Danger,
+    primary = HermesColorTokens.Dark.accent,
+    onPrimary = HermesColorTokens.Dark.accentOn,
+    background = HermesColorTokens.Dark.background,
+    surface = HermesColorTokens.Dark.surface,
+    surfaceVariant = HermesColorTokens.Dark.surfaceVariant,
+    onSurface = HermesColorTokens.Dark.onSurface,
+    onSurfaceVariant = HermesColorTokens.Dark.onSurfaceMuted,
+    outline = HermesColorTokens.Dark.border,
+    error = HermesColorTokens.Dark.danger,
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = HermesColorTokens.Light.Accent,
-    onPrimary = HermesColorTokens.Light.AccentOn,
-    background = HermesColorTokens.Light.Background,
-    surface = HermesColorTokens.Light.Surface,
-    surfaceVariant = HermesColorTokens.Light.SurfaceVariant,
-    onSurface = HermesColorTokens.Light.OnSurface,
-    onSurfaceVariant = HermesColorTokens.Light.OnSurfaceMuted,
-    outline = HermesColorTokens.Light.Border,
-    error = HermesColorTokens.Light.Danger,
+    primary = HermesColorTokens.Light.accent,
+    onPrimary = HermesColorTokens.Light.accentOn,
+    background = HermesColorTokens.Light.background,
+    surface = HermesColorTokens.Light.surface,
+    surfaceVariant = HermesColorTokens.Light.surfaceVariant,
+    onSurface = HermesColorTokens.Light.onSurface,
+    onSurfaceVariant = HermesColorTokens.Light.onSurfaceMuted,
+    outline = HermesColorTokens.Light.border,
+    error = HermesColorTokens.Light.danger,
 )
 
 val LocalReducedMotion = staticCompositionLocalOf { ReducedMotion(enabled = false) }
