@@ -1,0 +1,30 @@
+name: Feature request
+description: Define a user-facing Hermes Android capability
+title: "feat: "
+labels: ["type: feature"]
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: User outcome
+      description: What should the user be able to accomplish?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: List observable behaviors, including failure and offline states.
+    validations:
+      required: true
+  - type: input
+    id: figma
+    attributes:
+      label: Figma link
+      description: Required for visual changes.
+  - type: textarea
+    id: protocol
+    attributes:
+      label: Hermes protocol impact
+      description: Identify gateway methods, events, and compatibility concerns.
+

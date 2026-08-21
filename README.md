@@ -1,46 +1,29 @@
-# Hermes Agent — Android
+# Hermes Android Native
 
-Native Android app replicating the **Hermes Desktop** (Hermes One) experience with
-iOS-grade dark-terminal design. Built with Kotlin + Jetpack Compose.
+A native Android client for Hermes Agent, designed around the Hermes Desktop experience and redesigned for touch, small screens, tablets, and foldables.
 
-> **This is a community project**, not affiliated with Nous Research or the Hermes Desktop
-> maintainers. It is a client for your own Hermes Agent server (local via Termux or remote).
+## Product boundary
 
-## Features (roadmap)
+This app is a secure client for a Hermes gateway. Hermes remains authoritative for models, routing, skills, tools, agents, memory, cron, and NOUS operations.
 
-Full parity with Hermes Desktop:
-- 💬 **Chat** — SSE streaming, markdown, tool progress, token usage, 22 slash commands
-- 📚 **Sessions** — search (FTS5), resume, date groups
-- 🤖 **Profiles/Agents** — switch isolated Hermes environments
-- 🧩 **Skills** — browse, install, manage
-- 🧠 **Models** — provider + local model discovery
-- 📝 **Memory & Soul** — edit MEMORY.md, USER.md, SOUL.md
-- 🔧 **Tools** — toggle 14 toolsets
-- ⏰ **Schedules** — cron builder + delivery targets
-- 🌐 **Gateway** — 16 messaging platforms
-- ⚙️ **Settings** — provider, credentials, backup, logs, theme
+This project does not contain CCR, a duplicate router, a second inference gateway, a WebView desktop clone, or a separate Android agent runtime.
 
-## Connection
+## Current status
 
-- **Local**: run Hermes on-device via Termux
-- **Remote**: connect to your Hermes API server (URL + API key)
+Phase 0: repository and protocol discovery.
 
-## Build
+Implementation begins only after the running Hermes version and gateway contract are verified.
 
-```bash
-# Local (Termux/CI)
-./gradlew assembleDebug
-# Install
-adb install -r app/build/outputs/apk/debug/app-debug.apk
-```
+## Working rules
 
-CI builds signed APKs automatically. See **Releases** for downloadable APKs.
+- Figma is the visual source of truth.
+- Hermes gateway behavior is the protocol source of truth.
+- Every feature requires loading, empty, error, offline, reconnect, accessibility, and reduced-motion states where applicable.
+- Every network action must be cancellable, retry-safe, and observable.
+- Dangerous actions require explicit approval and never auto-approve after reconnect.
+- Personal vault contents and credentials never enter this repository.
 
-## Development
+## Planned stack
 
-Read `AGENTS.md` and `docs/` before contributing. The master plan lives in
-`docs/HERMES_ANDROID_MASTER_PLAN.md`.
+Kotlin, Jetpack Compose, Coroutines/Flow, Room, DataStore, Android Keystore, authenticated Hermes WebSocket/JSON-RPC, REST where required, WorkManager only for permitted client work, and GitHub Actions.
 
-## License
-
-MIT — see [LICENSE](LICENSE).

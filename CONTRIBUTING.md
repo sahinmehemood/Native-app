@@ -1,19 +1,14 @@
 # Contributing
 
-Welcome! This is a large, structured project. Read first:
+Work from a feature branch. Start with an issue or written task, keep changes focused, and open a draft pull request until build, test, security, and design checks are complete.
 
-1. `AGENTS.md` — session ritual, build commands, rules
-2. `docs/HERMES_ANDROID_MASTER_PLAN.md` — the contract
-3. `docs/ARCHITECTURE.md`, `docs/DESIGN_SYSTEM.md`, `docs/API_INTEGRATION.md`,
-   `docs/DATABASE_SCHEMA.md`, `docs/RELEASE_PROCESS.md`
+Required local checks:
 
-## Rules
-- Every pushed commit must compile + green unit tests
-- Dark theme is default
-- No hardcoded strings (use `res/values/strings.xml`)
-- No secrets in code
-- Every screen: MVI + `@Preview` + accessibility
-- Small verifiable steps, build after each chunk
+```text
+./gradlew assembleDebug
+./gradlew testDebugUnitTest
+./gradlew lintDebug
+```
 
-## Commit style
-`feat(scope): msg` · `fix(scope): msg` · `chore(scope): msg` · `docs: msg`
+Visual changes require a Figma frame, screenshots, accessibility verification, and explicit handling for loading, empty, error, offline, and reduced-motion states.
+
