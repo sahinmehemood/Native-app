@@ -22,7 +22,6 @@ import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.serialization.serializer
 
 /**
  * Ktor implementation of [HermesGatewayClient] targeting the stable
@@ -55,7 +54,7 @@ class KtorHermesGatewayClient(
         val response: HttpResponse = client.post("$baseUrl/api/sessions/$sessionId/chat?stream=true") {
             auth()
             contentType(ContentType.Application.Json)
-            setBody(HermesJson.encodeToString(ChatRequest.serializer(), request))
+            setBody(HermesJson.encodeToString(request))
         }
         emitSse(response.bodyAsText())
     }
