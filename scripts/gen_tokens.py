@@ -35,7 +35,15 @@ def gen_colors(d):
         out.append(f"    object {mode.capitalize()} {{")
         for sem, prim_name in d["semantic"]["color"][mode].items():
             hexv = prim.get(prim_name, "#000000")
-            out.append(f'        val {sem} = Color({hexv.upper()})')
+            # Kotlin Color takes 0xAARRGGBB. Strip '#', ensure 6-digit, prefix 0xFF.
+            rgb = hexv.lstrip("#").upper()
+            if len(rgb) == 6:
+                kotlin_color = f"0xFF{rgb}"
+            elif len(rgb) == 8:
+                kotlin_color = f"0x{rgb}"
+            else:
+                kotlin_color = "0xFF000000"
+            out.append(f'        val {sem} = Color({kotlin_color})')
         out.append("    }")
     out.append("}")
     return "\n".join(out) + "\n"
