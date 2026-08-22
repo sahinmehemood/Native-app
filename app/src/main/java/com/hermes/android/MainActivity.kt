@@ -99,7 +99,7 @@ private fun AppRoot() {
         ) {
             TextField(
                 value = draft,
-                onValueChange = { draft = it },
+                onValueChange = { value -> draft = value },
                 modifier = Modifier.weight(1f),
                 placeholder = { Text("Message Hermes", color = c.onSurfaceMuted) },
                 shape = RoundedCornerShape(18),
