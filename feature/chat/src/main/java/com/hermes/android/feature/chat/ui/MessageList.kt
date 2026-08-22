@@ -41,8 +41,8 @@ fun MessageList(
 fun MessageBubble(message: ChatMessage) {
     val isDark = isSystemInDarkTheme()
     val tokens = if (isDark) HermesColorTokens.Dark else HermesColorTokens.Light
-    val bubbleColor = if (message.role == "user") tokens.AccentSoft else MaterialTheme.colorScheme.surfaceVariant
-    val contentColor = if (message.role == "user") tokens.AccentOn else MaterialTheme.colorScheme.onSurface
+    val bubbleColor = if (message.role == "user") tokens.accentSoft else MaterialTheme.colorScheme.surfaceVariant
+    val contentColor = if (message.role == "user") tokens.accentOn else MaterialTheme.colorScheme.onSurface
     val alignment = if (message.role == "user") Alignment.End else Alignment.Start
     Box(Modifier.fillMaxWidth().padding(vertical = HermesSpacing.Xs), contentAlignment = alignment) {
         Surface(
