@@ -1,7 +1,6 @@
 package com.hermes.android.core.design.tokens
 
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.Dp
 
 object HermesSpacing {
     val None = 0.dp
