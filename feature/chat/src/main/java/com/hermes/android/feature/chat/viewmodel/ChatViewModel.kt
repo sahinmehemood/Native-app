@@ -112,4 +112,9 @@ class ChatViewModel(
         val runId = activeRunId ?: return
         viewModelScope.launch { runCatching { gateway.stopRun(runId) } }
     }
+
+    /** Cancel in-flight coroutines (used by tests and on permanent teardown). */
+    fun dispose() {
+        viewModelScope.cancel()
+    }
 }
