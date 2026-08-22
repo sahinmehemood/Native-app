@@ -23,7 +23,7 @@ interface PendingApprovalsStore {
 }
 
 class InMemoryPendingApprovalsStore : PendingApprovalsStore {
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Unconfined)
     private val ids = MutableStateFlow<Set<String>>(emptySet())
 
     override val count: StateFlow<Int> =
