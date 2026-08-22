@@ -80,7 +80,7 @@ class ChatViewModel(
     }
 
     private fun captureRun(event: StreamEvent) {
-        val run = runCatching { HermesJson.decodeFromJsonElement(RunStatusFrame.serializer(), event.data) }
+        val run = runCatching { HermesJson.decodeFromJsonElement<RunStatusFrame>(event.data) }
             .getOrNull() ?: return
         activeRunId = run.runId
         if (run.status == "awaiting_approval") pendingApprovals.add(run.runId) else pendingApprovals.remove(run.runId)

@@ -2,6 +2,7 @@ package com.hermes.android.feature.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hermes.android.core.gateway.ConnectionStatus
 import com.hermes.android.core.gateway.HermesGatewayClient
 import com.hermes.android.core.gateway.PendingApprovalsStore
 import kotlinx.coroutines.flow.MutableStateFlow

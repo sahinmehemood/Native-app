@@ -31,7 +31,7 @@ class ChatStreamReducer(private val json: Json = HermesJson) {
     }
 
     private fun appendDelta(state: ChatUiState, event: StreamEvent): ChatUiState {
-        val text = runCatching { json.decodeFromJsonElement(DeltaFrame.serializer(), event.data) }
+        val text = runCatching { json.decodeFromJsonElement<DeltaFrame>(event.data) }
             .getOrNull()?.text ?: return state
         val messages = state.messages.toMutableList()
         val last = messages.lastOrNull()
@@ -44,7 +44,7 @@ class ChatStreamReducer(private val json: Json = HermesJson) {
     }
 
     private fun appendMessage(state: ChatUiState, event: StreamEvent): ChatUiState {
-        val msg = runCatching { json.decodeFromJsonElement(Message.serializer(), event.data) }
+        val msg = runCatching { json.decodeFromJsonElement<Message>(event.data) }
             .getOrNull() ?: return state
         val message = ChatMessage(
             id = msg.id ?: "m-${state.messages.size}",
@@ -56,7 +56,7 @@ class ChatStreamReducer(private val json: Json = HermesJson) {
     }
 
     private fun updateTool(state: ChatUiState, event: StreamEvent): ChatUiState {
-        val tool = runCatching { json.decodeFromJsonElement(ToolFrame.serializer(), event.data) }
+        val tool = runCatching { json.decodeFromJsonElement<ToolFrame>(event.data) }
             .getOrNull() ?: return state
         val entry = ToolActivity(
             index = tool.index,
@@ -73,7 +73,7 @@ class ChatStreamReducer(private val json: Json = HermesJson) {
     }
 
     private fun updateRun(state: ChatUiState, event: StreamEvent): ChatUiState {
-        val run = runCatching { json.decodeFromJsonElement(RunStatusFrame.serializer(), event.data) }
+        val run = runCatching { json.decodeFromJsonElement<RunStatusFrame>(event.data) }
             .getOrNull() ?: return state
         return when (run.status) {
             "awaiting_approval" -> state.copy(
@@ -92,6 +92,6 @@ class ChatStreamReducer(private val json: Json = HermesJson) {
     }
 
     private fun parseError(event: StreamEvent): String =
-        runCatching { json.decodeFromJsonElement(ErrorFrame.serializer(), event.data) }
+        runCatching { json.decodeFromJsonElement<ErrorFrame>(event.data) }
             .fold(onSuccess = { it.message }, onFailure = { "Unknown error" })
 }

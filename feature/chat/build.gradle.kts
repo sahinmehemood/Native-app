@@ -26,6 +26,7 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.compose)
     implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
     implementation(libs.kotlinx.serialization.json)
     implementation(project(":core:design"))
     implementation(project(":core:gateway"))
