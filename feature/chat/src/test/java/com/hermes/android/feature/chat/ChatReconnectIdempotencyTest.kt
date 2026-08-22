@@ -61,6 +61,7 @@ class ChatReconnectIdempotencyTest {
         assertEquals(1, fake.postChatCalls)
         assertEquals(0, fake.postApprovalCalls)
         assertEquals(ConnectionStatus.Connected, vm.state.value.connection)
+        vm.clear() // end the in-flight stream collect so runTest has no leaked coroutine
     }
 
     @Test
@@ -79,5 +80,6 @@ class ChatReconnectIdempotencyTest {
 
         assertEquals("persisted draft", vm.state.value.draft)
         assertEquals(0, fake.postChatCalls)
+        vm.clear() // end the in-flight stream collect so runTest has no leaked coroutine
     }
 }
