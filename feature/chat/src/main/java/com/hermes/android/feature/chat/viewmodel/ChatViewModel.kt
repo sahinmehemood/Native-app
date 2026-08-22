@@ -11,6 +11,7 @@ import com.hermes.android.core.gateway.model.RunStatusFrame
 import com.hermes.android.core.gateway.model.StreamEvent
 import com.hermes.android.feature.chat.domain.ChatStreamReducer
 import com.hermes.android.feature.chat.domain.DraftRepository
+import kotlinx.serialization.json.decodeFromJsonElement
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

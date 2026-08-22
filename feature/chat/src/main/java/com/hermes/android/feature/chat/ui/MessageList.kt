@@ -44,7 +44,7 @@ fun MessageBubble(message: ChatMessage) {
     val accentOn = if (isDark) HermesColorTokens.Dark.accentOn else HermesColorTokens.Light.accentOn
     val bubbleColor = if (message.role == "user") accentSoft else MaterialTheme.colorScheme.surfaceVariant
     val contentColor = if (message.role == "user") accentOn else MaterialTheme.colorScheme.onSurface
-    val alignment = if (message.role == "user") Alignment.End else Alignment.Start
+    val alignment = if (message.role == "user") Alignment.CenterEnd else Alignment.CenterStart
     Box(Modifier.fillMaxWidth().padding(vertical = HermesSpacing.Xs), contentAlignment = alignment) {
         Surface(
             color = bubbleColor,

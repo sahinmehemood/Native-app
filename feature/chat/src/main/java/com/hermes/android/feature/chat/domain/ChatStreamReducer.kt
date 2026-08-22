@@ -4,14 +4,15 @@ import com.hermes.android.core.gateway.HermesJson
 import com.hermes.android.core.gateway.model.DeltaFrame
 import com.hermes.android.core.gateway.model.ErrorFrame
 import com.hermes.android.core.gateway.model.Message
+import com.hermes.android.core.gateway.model.ToolFrame
 import com.hermes.android.core.gateway.model.RunStatusFrame
 import com.hermes.android.core.gateway.model.StreamEvent
-import com.hermes.android.core.gateway.model.ToolFrame
 import com.hermes.android.feature.chat.viewmodel.ChatMessage
 import com.hermes.android.feature.chat.viewmodel.ChatUiState
 import com.hermes.android.feature.chat.viewmodel.PendingApproval
 import com.hermes.android.feature.chat.viewmodel.ToolActivity
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromJsonElement
 
 /**
  * Pure, framework-free mapping from SSE [StreamEvent]s to [ChatUiState].
