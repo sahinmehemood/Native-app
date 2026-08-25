@@ -9,12 +9,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -26,6 +31,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hermes.android.core.design.tokens.HermesElevation
 import com.hermes.android.core.design.tokens.HermesSpacing
 import com.hermes.android.core.gateway.model.SessionSummary
+import com.hermes.android.core.ui.states.EmptyState
+import com.hermes.android.core.ui.states.ErrorState
 import com.hermes.android.feature.home.viewmodel.HealthLoad
 import com.hermes.android.feature.home.viewmodel.HomeUiState
 import com.hermes.android.feature.home.viewmodel.HomeViewModel
@@ -33,7 +40,10 @@ import com.hermes.android.feature.home.viewmodel.SessionsLoad
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeRoute(onSessionClick: (String) -> Unit) {
+fun HomeRoute(
+    onSessionClick: (String) -> Unit,
+    onSettingsClick: () -> Unit = {},
+) {
     val viewModel: HomeViewModel = koinViewModel()
     val state by viewModel.state.collectAsStateWithLifecycle()
     val pending by viewModel.pendingApprovalsCount.collectAsStateWithLifecycle()
@@ -41,6 +51,7 @@ fun HomeRoute(onSessionClick: (String) -> Unit) {
         state = state,
         pendingApprovals = pending,
         onSessionClick = onSessionClick,
+        onSettingsClick = onSettingsClick,
         onReload = viewModel::load,
         onReconnect = viewModel::onReconnect,
     )
@@ -51,6 +62,7 @@ fun HomeScreen(
     state: HomeUiState,
     pendingApprovals: Int,
     onSessionClick: (String) -> Unit,
+    onSettingsClick: () -> Unit = {},
     onReload: () -> Unit,
     onReconnect: () -> Unit,
     modifier: Modifier = Modifier,
@@ -61,6 +73,9 @@ fun HomeScreen(
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
             Text("Hermes", style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
             if (pendingApprovals > 0) PendingApprovalsBadge(count = pendingApprovals)
+            IconButton(onClick = onSettingsClick) {
+                Icon(Icons.Outlined.Settings, contentDescription = "Settings")
+            }
         }
         Spacer(Modifier.height(HermesSpacing.Lg))
         HealthTile(load = state.health)

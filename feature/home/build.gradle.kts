@@ -31,6 +31,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(project(":core:design"))
     implementation(project(":core:gateway"))
+    implementation(project(":core:ui"))
+    implementation(project(":core:navigation"))
 
     testImplementation(libs.test.junit)
     testImplementation(libs.test.mockk)

@@ -1,16 +1,30 @@
-*.iml
-.gradle/
-local.properties
-/.idea/
-build/
+# Built artifacts
+*.apk
+*.aar
+*.jar
+*.class
+*.dex
+*.so
+/build/
 **/build/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Local config that may hold secrets (never commit)
+local.properties
+gradle.properties.local
 *.keystore
 *.jks
-*.apk
-*.aab
-*.hprof
-.env
-.env.*
-secrets/
-design/private/
 
+# Android Studio / IDE
+*.iml
+.idea/
+.DS_Store
+Thumbs.db
+
+# OS
+*~
+
+# Logs
+*.log

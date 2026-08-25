@@ -84,6 +84,10 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.compose.navigation)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.androidx.compose)
 
     // Gateway client
     implementation(libs.ktor.client.core)
