@@ -20,7 +20,7 @@ fun chatModule() = module {
 }
 
 /** Nav-graph entry for a chat session. Reads `sessionId` from the route args. */
-fun chatDestination(): HermesDestination = HermesDestination(Route.Chat.route) { navController ->
+fun chatDestination(): HermesDestination = HermesDestination(Route.Chat.createRoute("{sessionId}")) { navController ->
     val sessionId = navController.currentBackStackEntry
         ?.arguments?.getString(Route.Chat.ARG) ?: "session-unknown"
     ChatRoute(sessionId = sessionId)
