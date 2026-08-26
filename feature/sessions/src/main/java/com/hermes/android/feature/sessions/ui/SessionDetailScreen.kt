@@ -108,11 +108,9 @@ fun SessionDetailScreen(
 
 @Composable
 private fun MessageRow(message: Message) {
-    val isDark = isSystemInDarkTheme()
-    val tokens = if (isDark) HermesColorTokens.Dark else HermesColorTokens.Light
     val isUser = message.role == "user"
-    val bubbleColor = if (isUser) tokens.accentSoft else MaterialTheme.colorScheme.surfaceVariant
-    val contentColor = if (isUser) tokens.accentOn else MaterialTheme.colorScheme.onSurface
+    val bubbleColor = if (isUser) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant
+    val contentColor = if (isUser) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface
     Surface(
         color = bubbleColor,
         shape = RoundedCornerShape(HermesSpacing.CardRadius),
@@ -124,7 +122,7 @@ private fun MessageRow(message: Message) {
                 Text(
                     text = message.role.replaceFirstChar { it.uppercase() },
                     style = MaterialTheme.typography.labelMedium,
-                    color = if (isUser) tokens.accent else MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = if (isUser) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 message.createdAt?.let {
                     Spacer(Modifier.width(HermesSpacing.Sm))
