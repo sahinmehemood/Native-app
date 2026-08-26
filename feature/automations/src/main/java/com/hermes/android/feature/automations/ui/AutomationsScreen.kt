@@ -45,6 +45,7 @@ import com.hermes.android.core.data.ScheduledJob
 import com.hermes.android.core.ui.states.EmptyState
 import com.hermes.android.feature.automations.viewmodel.AutomationsStatus
 import com.hermes.android.feature.automations.viewmodel.AutomationsUiState
+import com.hermes.android.feature.automations.viewmodel.AutomationsViewModel
 import com.hermes.android.feature.automations.viewmodel.JobRunState
 import org.koin.androidx.compose.koinViewModel
 

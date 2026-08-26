@@ -36,6 +36,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hermes.android.core.design.tokens.HermesColorTokens
 import com.hermes.android.core.design.tokens.HermesSpacing
 import com.hermes.android.feature.settings.ConnectionTest
+import com.hermes.android.feature.settings.viewmodel.SettingsViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

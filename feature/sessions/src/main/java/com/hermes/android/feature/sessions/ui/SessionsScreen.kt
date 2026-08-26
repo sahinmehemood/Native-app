@@ -40,6 +40,7 @@ import com.hermes.android.core.ui.states.LoadingState
 import com.hermes.android.core.ui.states.OfflineBanner
 import com.hermes.android.feature.sessions.viewmodel.SessionsStatus
 import com.hermes.android.feature.sessions.viewmodel.SessionsUiState
+import com.hermes.android.feature.sessions.viewmodel.SessionsViewModel
 import com.hermes.android.feature.sessions.viewmodel.filtered
 
 @Composable

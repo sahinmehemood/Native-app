@@ -43,6 +43,7 @@ import com.hermes.android.core.ui.states.OfflineBanner
 import com.hermes.android.feature.nous.viewmodel.NousCaptureStatus
 import com.hermes.android.feature.nous.viewmodel.NousSearchStatus
 import com.hermes.android.feature.nous.viewmodel.NousUiState
+import com.hermes.android.feature.nous.viewmodel.NousViewModel
 import com.hermes.android.feature.nous.viewmodel.filteredSessions
 import org.koin.androidx.compose.koinViewModel
 

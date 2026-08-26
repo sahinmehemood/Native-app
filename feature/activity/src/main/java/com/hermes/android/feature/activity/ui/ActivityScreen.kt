@@ -39,6 +39,7 @@ import com.hermes.android.core.ui.states.OfflineBanner
 import com.hermes.android.feature.activity.viewmodel.ActivityItem
 import com.hermes.android.feature.activity.viewmodel.ActivityStatus
 import com.hermes.android.feature.activity.viewmodel.ActivityUiState
+import com.hermes.android.feature.activity.viewmodel.ActivityViewModel
 import com.hermes.android.feature.activity.viewmodel.ItemMessagesStatus
 import org.koin.androidx.compose.koinViewModel
 
