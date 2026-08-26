@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -71,7 +70,7 @@ fun HomeScreen(
         modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(HermesSpacing.Lg),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-            Text("Hermes", style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
+            Text("Hermes", style = MaterialTheme.typography.titleLarge, modifier = Modifier.fillMaxWidth())
             if (pendingApprovals > 0) PendingApprovalsBadge(count = pendingApprovals)
             IconButton(onClick = onSettingsClick) {
                 Icon(Icons.Outlined.Settings, contentDescription = "Settings")
@@ -103,7 +102,7 @@ fun HealthTile(load: HealthLoad) {
                 is HealthLoad.Ready -> {
                     val ok = load.status.status == "ok"
                     val color = if (ok) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
-                    Text("Gateway", style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+                    Text("Gateway", style = MaterialTheme.typography.titleMedium, modifier = Modifier.fillMaxWidth())
                     Text(
                         load.status.version ?: "",
                         style = MaterialTheme.typography.labelMedium,

@@ -13,6 +13,7 @@ android {
 dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:ui"))
+    implementation(project(":core:design"))
     implementation(project(":core:navigation"))
     implementation(project(":core:gateway"))
     implementation(platform(libs.androidx.compose.bom))

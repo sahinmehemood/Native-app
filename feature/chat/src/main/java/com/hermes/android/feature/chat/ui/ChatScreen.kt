@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -51,12 +50,12 @@ fun ChatScreen(
         OfflineBanner(connection = state.connection, onReconnect = onReconnect)
         val error = state.error
         if (error != null && state.messages.isEmpty()) {
-            ErrorState(message = error, onRetry = onReconnect, modifier = Modifier.weight(1f))
+            ErrorState(message = error, onRetry = onReconnect, modifier = Modifier.fillMaxSize())
         } else {
             MessageList(
                 messages = state.messages,
                 toolActivity = state.toolActivity,
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.fillMaxSize(),
             )
             state.pendingApproval?.let { approval ->
                 Spacer(Modifier.height(HermesSpacing.Sm))
