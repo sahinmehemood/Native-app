@@ -30,5 +30,5 @@ class SessionRepository(private val gateway: HermesGatewayClient) {
      * persisted server-side, so the client only needs to confirm delivery.
      */
     suspend fun postChatMessage(sessionId: String, message: String) {
-        gateway.postChat(sessionId, ChatRequest(message = message, stream = true)).collect()
+        gateway.postChat(sessionId, ChatRequest(message = message, stream = true)).collect { }
     }
