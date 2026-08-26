@@ -1,6 +1,6 @@
 package com.hermes.android.core.gateway.di
 
-import com.hermes.android.core.gateway.GatewayConfig
+import com.hermes.android.core.gateway.GatewayConfigProvider
 import com.hermes.android.core.gateway.HermesGatewayClient
 import com.hermes.android.core.gateway.InMemoryPendingApprovalsStore
 import com.hermes.android.core.gateway.KtorHermesGatewayClient
@@ -10,13 +10,13 @@ import org.koin.dsl.module
 /**
  * Wires the gateway client + shared approval store.
  *
- * The caller (app shell) must also provide a [GatewayConfig] singleton built
- * from the Keystore/DataStore-backed connection profile (never hardcoded).
+ * The active [GatewayConfigProvider] is contributed by the data layer
+ * ([com.hermes.android.core.data.dataModule]) and reads the live connection
+ * profile, so the client always uses the current host / API key. The caller
+ * (app shell) must still install [com.hermes.android.core.data.dataModule]
+ * (which includes this module) so the provider resolves.
  */
 fun gatewayModule() = module {
     single<PendingApprovalsStore> { InMemoryPendingApprovalsStore() }
-    single<HermesGatewayClient> {
-        val config = get<GatewayConfig>()
-        KtorHermesGatewayClient(config.baseUrl, config.apiKey)
-    }
+    single<HermesGatewayClient> { KtorHermesGatewayClient(get<GatewayConfigProvider>()) }
 }

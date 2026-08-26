@@ -2,8 +2,10 @@ package com.hermes.android.feature.chat
 
 import com.hermes.android.core.gateway.HermesGatewayClient
 import com.hermes.android.core.gateway.model.ApprovalResult
+import com.hermes.android.core.gateway.model.Capabilities
 import com.hermes.android.core.gateway.model.ChatRequest
 import com.hermes.android.core.gateway.model.HealthStatus
+import com.hermes.android.core.gateway.model.Message
 import com.hermes.android.core.gateway.model.SessionSummary
 import com.hermes.android.core.gateway.model.StreamEvent
 import kotlinx.coroutines.flow.Flow
@@ -32,6 +34,10 @@ class FakeHermesGatewayClient(
 
     override suspend fun getHealth(): HealthStatus = HealthStatus(status = "ok")
     override suspend fun getSessions(): List<SessionSummary> = emptyList()
+    override suspend fun createSession(): SessionSummary = SessionSummary(id = "fake-session")
+    override suspend fun getSessionMessages(sessionId: String): List<Message> = emptyList()
+    override suspend fun deleteSession(sessionId: String) = Unit
+    override suspend fun getCapabilities(): Capabilities = Capabilities(version = "0.20.5")
     override fun postChat(sessionId: String, request: ChatRequest): Flow<StreamEvent> {
         postChatCalls++
         lastChatSessionId = sessionId

@@ -23,6 +23,7 @@ import com.hermes.android.feature.automations.automationsDestination
 import com.hermes.android.feature.chat.chatDestination
 import com.hermes.android.feature.home.homeDestination
 import com.hermes.android.feature.nous.nousDestination
+import com.hermes.android.feature.sessions.sessionDetailDestination
 import com.hermes.android.feature.sessions.sessionsDestination
 import com.hermes.android.feature.settings.settingsDestination
 import org.koin.android.ext.koin.androidContext
@@ -76,9 +77,26 @@ private fun AppRoot() {
                 chatDestination(),
                 settingsDestination(onNavigateUp = { navController.popBackStack() }),
                 activityDestination(),
-                sessionsDestination(),
-                nousDestination(),
-                automationsDestination(),
+                sessionsDestination(
+                    onNavigateToDetail = { id -> navController.navigate(Route.SessionDetail.createRoute(id)) },
+                    onNavigateUp = { navController.popBackStack() },
+                ),
+                sessionDetailDestination(
+                    onNavigateUp = { navController.popBackStack() },
+                    onOpenInChat = { id -> navController.navigate(Route.Chat.createRoute(id)) },
+                ),
+                activityDestination(
+                    onNavigateUp = { navController.popBackStack() },
+                    onOpenSession = { id -> navController.navigate(Route.SessionDetail.createRoute(id)) },
+                ),
+                nousDestination(
+                    onNavigateUp = { navController.popBackStack() },
+                    onOpenSession = { id -> navController.navigate(Route.SessionDetail.createRoute(id)) },
+                ),
+                automationsDestination(
+                    onNavigateUp = { navController.popBackStack() },
+                    onOpenSession = { id -> navController.navigate(Route.Chat.createRoute(id)) },
+                ),
             ),
         )
     }

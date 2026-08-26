@@ -1,8 +1,10 @@
 package com.hermes.android.core.gateway
 
 import com.hermes.android.core.gateway.model.ApprovalResult
+import com.hermes.android.core.gateway.model.Capabilities
 import com.hermes.android.core.gateway.model.ChatRequest
 import com.hermes.android.core.gateway.model.HealthStatus
+import com.hermes.android.core.gateway.model.Message
 import com.hermes.android.core.gateway.model.SessionSummary
 import com.hermes.android.core.gateway.model.StreamEvent
 import kotlinx.coroutines.flow.Flow
@@ -22,6 +24,10 @@ enum class ConnectionStatus { Connected, Reconnecting, Offline }
 interface HermesGatewayClient {
     suspend fun getHealth(): HealthStatus
     suspend fun getSessions(): List<SessionSummary>
+    suspend fun createSession(): SessionSummary
+    suspend fun getSessionMessages(sessionId: String): List<Message>
+    suspend fun deleteSession(sessionId: String)
+    suspend fun getCapabilities(): Capabilities
     fun postChat(sessionId: String, request: ChatRequest): Flow<StreamEvent>
     fun getRunEvents(runId: String): Flow<StreamEvent>
     suspend fun postApproval(runId: String, decision: String, scope: String? = null): ApprovalResult
