@@ -2,6 +2,7 @@ package com.hermes.android.core.data
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.coroutines.flow.StateFlow
 
 /**
  * A user-defined, client-side scheduled job (a "Hermes automation").

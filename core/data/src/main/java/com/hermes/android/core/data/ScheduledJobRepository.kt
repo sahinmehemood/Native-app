@@ -31,7 +31,7 @@ class ScheduledJobRepository(private val context: Context) : ScheduledJobStore {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     private val _jobs = MutableStateFlow<List<ScheduledJob>>(emptyList())
-    val jobs: StateFlow<List<ScheduledJob>> = _jobs.asStateFlow()
+    override val jobs: StateFlow<List<ScheduledJob>> = _jobs.asStateFlow()
 
     init {
         scope.launch {

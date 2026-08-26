@@ -2,6 +2,7 @@ package com.hermes.android.core.data
 
 import com.hermes.android.core.gateway.HermesGatewayClient
 import com.hermes.android.core.gateway.model.Capabilities
+import com.hermes.android.core.gateway.model.ChatRequest
 import com.hermes.android.core.gateway.model.HealthStatus
 import com.hermes.android.core.gateway.model.Message
 import com.hermes.android.core.gateway.model.SessionSummary
