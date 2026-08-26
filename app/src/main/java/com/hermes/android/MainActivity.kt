@@ -25,7 +25,7 @@ import com.hermes.android.feature.home.homeDestination
 import com.hermes.android.feature.nous.nousDestination
 import com.hermes.android.feature.sessions.sessionsDestination
 import com.hermes.android.feature.settings.settingsDestination
-import org.koin.android.ext.android.androidContext
+import org.koin.android.ext.koin.androidContext
 import org.koin.compose.koinInject
 import org.koin.core.context.startKoin
 
