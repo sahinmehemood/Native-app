@@ -32,3 +32,4 @@ class SessionRepository(private val gateway: HermesGatewayClient) {
     suspend fun postChatMessage(sessionId: String, message: String) {
         gateway.postChat(sessionId, ChatRequest(message = message, stream = true)).collect { }
     }
+}
