@@ -123,6 +123,7 @@ fun OfflineBanner(
  * plus a content slot receiving [PaddingValues]. Connection/offline handling is
  * intentionally left to [OfflineBanner] so callers control placement.
  */
+@OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
 fun HermesScaffold(
     title: String,
