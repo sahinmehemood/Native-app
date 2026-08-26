@@ -41,6 +41,7 @@ import com.hermes.android.feature.settings.ConnectionTest
 import com.hermes.android.feature.settings.SettingsViewModel
 import org.koin.androidx.compose.koinViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(onNavigateUp: () -> Unit) {
     val viewModel: SettingsViewModel = koinViewModel()
